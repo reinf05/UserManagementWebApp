@@ -10,6 +10,7 @@ namespace UserManagementWebApp.Interfaces
         Task<bool> UserExist(int id);
         Task<bool> UserExist(User user);
         Task<bool> CreateUser(User userCreate);
+        Task<bool> UpdateUser(UserDto userUpdate);
         
     }
 }

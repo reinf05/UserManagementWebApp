@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UserManagementWebApp.Data;
 using UserManagementWebApp.DTO;
 using UserManagementWebApp.Interfaces;
@@ -30,6 +31,21 @@ namespace UserManagementWebApp.Repositories
         public async Task<ICollection<User>> GetUsers()
         {
             return await _context.Users.ToListAsync();
+        }
+
+        public async Task<bool> UpdateUser(UserDto userUpdate, [FromBody] int id, [FromBody] DateOnly registrationDate)
+        {
+            User user = new User()
+            {
+                Id = id,
+                Name = userUpdate.Name,
+                Email = userUpdate.Email,
+                BirthDate = userUpdate.BirthDate,
+                RegistrationDate = registrationDate
+            };
+
+            _context.Update(user);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UserExist(int id)
