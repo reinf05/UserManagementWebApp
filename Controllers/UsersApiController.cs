@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserManagementWebApp.DTO;
 using UserManagementWebApp.Interfaces;
 using UserManagementWebApp.Models;
 
@@ -40,6 +41,31 @@ namespace UserManagementWebApp.Controllers
 
             var user = await _userRepository.GetUser(id);
 
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(UserDto userCreate)
+        {
+            var user = new User()
+            {
+                Name = userCreate.Name,
+                Email = userCreate.Email,
+                BirthDate = userCreate.BirthDate,
+            };
+
+            if (await _userRepository.UserExist(user))
+            {
+                ModelState.AddModelError("", "User with this email already exists");
+                return BadRequest(ModelState);
+            }
+
+            if(!await _userRepository.CreateUser(user))
+            {
+                ModelState.AddModelError("", "Could not save to database");
+                return BadRequest(ModelState);
+            }
+            
             return Ok(user);
         }
     }

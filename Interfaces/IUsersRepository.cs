@@ -1,4 +1,5 @@
-﻿using UserManagementWebApp.Models;
+﻿using UserManagementWebApp.DTO;
+using UserManagementWebApp.Models;
 
 namespace UserManagementWebApp.Interfaces
 {
@@ -7,6 +8,8 @@ namespace UserManagementWebApp.Interfaces
         Task<ICollection<User>> GetUsers();
         Task<User> GetUser(int id);
         Task<bool> UserExist(int id);
+        Task<bool> UserExist(User user);
+        Task<bool> CreateUser(User userCreate);
         
     }
 }

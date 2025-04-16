@@ -15,5 +15,10 @@ namespace UserManagementWebApp.Models
         public string Email { get; set; }
         public DateOnly BirthDate { get; set; }
         public DateOnly RegistrationDate { get; set; }
+
+        public User()
+        {
+            RegistrationDate =  DateOnly.Parse(DateTime.Now.ToShortDateString());
+        }
     }
 }
