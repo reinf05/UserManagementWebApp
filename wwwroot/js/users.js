@@ -5,9 +5,9 @@ const tableData = document.getElementById('listUserData');
 const searchText = document.getElementById('searchText');
 
 //function to display all of the users
-function listAllUsers() {
+async function listAllUsers() {
 
-    fetch('/api/UsersApi')
+    await fetch('/api/UsersApi')
         .then(result => result.json())
         .then(users => {
             users.forEach(user => {
@@ -31,8 +31,8 @@ function listAllUsers() {
 }
 
 //Function to display a specific user with given ID
-function getUserById(id) {
-    fetch(`/api/UsersApi/${id}`, {
+async function getUserById(id) {
+    await fetch(`/api/UsersApi/${id}`, {
         method:'GET'
     })
         .then(result => {
@@ -69,6 +69,9 @@ function getUserById(id) {
             console.log(error)
         })
 }
+
+//Function to delete a user
+
 
 //Event listeners
 //If search page is loaded, load all of the users
