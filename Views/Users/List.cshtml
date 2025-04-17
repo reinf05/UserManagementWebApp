@@ -2,10 +2,10 @@
 	ViewData["Title"] = "Search";
 }
 
-<h3>Search for user</h3>
+<h3 id="searchText">Search for user</h3>
 
 <form id="searchForm">
-	<input type="number" placeholder="Search for the ID of a user"/>
+	<input type="number" placeholder="Search for the ID of a user" id="searchValue"/>
 	<button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
 </form>
 
@@ -16,11 +16,17 @@
 			<th>Name</th>
 			<th>Email</th>
 			<th>Birthdate</th>
-			<th>Registration date</th>
+			<th >Registration date</th>
 		</tr>
 	</thead>
 
 	<tbody id="listUserData">
+		@* Needed to have edit and delete links automatically generated*@
 
 	</tbody>
 </table>
+
+<script>
+	const editUrl = '@Url.Action("Edit", "Users", new { id = "id" })';
+	const deleteUrl = '@Url.Action("Delete", "Users", new { id = "id" })';
+</script>
