@@ -22,6 +22,12 @@ namespace UserManagementWebApp.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteUser(int id)
+        {
+            _context.Remove(id);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
@@ -37,6 +43,11 @@ namespace UserManagementWebApp.Repositories
         {
             _context.Update(user);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public Task<bool> UpdateUser(UserDto userUpdate)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> UserExist(int id)

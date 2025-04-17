@@ -101,5 +101,22 @@ namespace UserManagementWebApp.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            if (!await _userRepository.UserExist(id))
+            {
+                return NotFound();
+            }
+
+            if (!await _userRepository.DeleteUser(id))
+            {
+                ModelState.AddModelError("", "Something went wrong during saving");
+                return BadRequest(ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }   
