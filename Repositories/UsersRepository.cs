@@ -27,7 +27,8 @@ namespace UserManagementWebApp.Repositories
 
         public async Task<bool> DeleteUser(int id)
         {
-            _context.Remove(id);
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            _context.Remove(user);
             return await _context.SaveChangesAsync() > 0;
         }
 
