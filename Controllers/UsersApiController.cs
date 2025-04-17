@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
 using UserManagementWebApp.DTO;
 using UserManagementWebApp.Interfaces;
 using UserManagementWebApp.Models;
@@ -69,5 +70,36 @@ namespace UserManagementWebApp.Controllers
             return Ok(user);
         }
 
+
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserDto userDto)
+        {
+            if(userDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(userId != userDto.Id)
+            {
+                ModelState.AddModelError("", "Wrong ID");
+                return BadRequest(ModelState);
+            }
+
+            User updatedUser = new User()
+            {
+                Id = userId,
+                Name = userDto.Name,
+                Email = userDto.Email,
+                BirthDate = userDto.BirthDate
+            };
+
+            if(! await _userRepository.UpdateUser(updatedUser))
+            {
+                ModelState.AddModelError("", "Something went wrong during saving");
+                return BadRequest(ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }   

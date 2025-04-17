@@ -33,17 +33,8 @@ namespace UserManagementWebApp.Repositories
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<bool> UpdateUser(UserDto userUpdate, [FromBody] int id, [FromBody] DateOnly registrationDate)
+        public async Task<bool> UpdateUser(User user)
         {
-            User user = new User()
-            {
-                Id = id,
-                Name = userUpdate.Name,
-                Email = userUpdate.Email,
-                BirthDate = userUpdate.BirthDate,
-                RegistrationDate = registrationDate
-            };
-
             _context.Update(user);
             return await _context.SaveChangesAsync() > 0;
         }
