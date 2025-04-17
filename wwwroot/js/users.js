@@ -8,6 +8,7 @@ const deleteUserData = document.getElementById('deleteUserData');
 const deleteText = document.getElementById('deleteText');
 
 const createForm = document.getElementById('createUserForm');
+const createText = document.getElementById('createText');
 
 //function to display all of the users
 async function listAllUsers() {
@@ -75,59 +76,43 @@ async function getUserById(id) {
         })
 }
 
-////Function to load current user into delete page
-//async function LoadDeleteUserPage() {
-//    await fetch(`/api/UsersApi/${id}`, {
-//        method: 'GET'
-//    })
-//        .then(result => {
-//            if (result.status == 200) {
-//                return result.json()
-//            }
-//            else {
-//                return null;
-//            }
-//        })
-//        .then(user => {
-//            deleteUserData.innerHTML = '';
-//            if (user != null) {
-//                deleteUserData.innerHTML +=
-//                    `<tr>
-//                        <td>${user.id}</td>
-//                        <td>${user.name}</td>
-//                        <td>${user.email}</td>
-//                        <td>${user.birthDate}</td>
-//                        <td>${user.registrationDate}</td>
-//                    </tr>`
-//            }
-//            else {
-//                deleteText.innerText = 'Something went wrong loading the data. Please try again';
-//            }
-//        })
-//        .catch(error => {
-//            console.log(error)
-//        })
-//}
-
 //Function to delete a user
 
 //Function to create users
 async function CreateUser() {
-    const createUserDto = {
-        name: document.getElementById('createName').value,
-        email: document.getElementById('createEmail').value,
-        birthDate: document.getElementById('createBirthDate').value
+    const createName = document.getElementById('createName').value; 
+    const createEmail = document.getElementById('createEmail').value;
+    const createBirthDate = document.getElementById('createBirthDate').value;
+
+    if (createName != '' && createEmail != '' && createBirthDate !== '') {
+        const createUserDto = {
+            name: createName,
+            email: createEmail,
+            birthDate: createBirthDate
+        }
+
+        await fetch('/api/UsersApi', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(createUserDto)
+            }).then(result => {
+                if (result.status == 409) {
+                    createText.innerText = "User already exists with this email. Please provide an other one";
+                }
+                else if (result.status == 200) {
+                    window.location.href = '/Users/List'
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    else {
+        alert('Please fill out all of the field accordingly')
     }
 
-    await fetch('/api/UsersApi', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(createUserDto)
-        }).catch(error => {
-            console.log(error)
-        })
 };
 
 
@@ -143,8 +128,6 @@ document.addEventListener('DOMContentLoaded', event => {
             //edit function
             break;
         case "Delete":
-
-            LoadDeleteUserPage();
             break;
     }
 });

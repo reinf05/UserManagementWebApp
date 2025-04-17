@@ -65,14 +65,19 @@ namespace UserManagementWebApp.Controllers
                 Name = userCreate.Name,
                 Email = userCreate.Email,
                 BirthDate = userCreate.BirthDate,
+            };
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Please fill out all paramaters!");
+                return BadRequest(ModelState);
             }
-            ;
 
             //If user already exists throw error
             if (await _userRepository.UserExist(user))
             {
                 ModelState.AddModelError("", "User with this email already exists");
-                return BadRequest(ModelState);
+                return Conflict(ModelState);
             }
 
             //Try to create it, if anything went wrong throw error
