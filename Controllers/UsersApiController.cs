@@ -38,11 +38,11 @@ namespace UserManagementWebApp.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(int userId)
         {
-            //First check if userId is a number
-            if(userId < 0)
-            {
-                return BadRequest(ModelState);
-            }
+            ////First check if userId is a number (checked at input level)
+            //if(userId < 0)
+            //{
+            //    return BadRequest(ModelState);
+            //}
             //Check if there is an existing user, if not return not found
             bool exists = await _userRepository.UserExist(userId);
             if (!exists)
@@ -65,7 +65,8 @@ namespace UserManagementWebApp.Controllers
                 Name = userCreate.Name,
                 Email = userCreate.Email,
                 BirthDate = userCreate.BirthDate,
-            };
+            }
+            ;
 
             //If user already exists throw error
             if (await _userRepository.UserExist(user))

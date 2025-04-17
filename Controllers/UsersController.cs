@@ -14,7 +14,7 @@ namespace UserManagementWebApp.Controllers
         public IActionResult List()
         {
             return View();
-        }        
+        }
         public IActionResult Delete()
         {
             return View();
