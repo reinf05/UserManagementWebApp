@@ -1,12 +1,11 @@
-﻿@model UserManagementWebApp.Models.User
-@{
+﻿@{
 	ViewData["Title"] = "Edit";
 }
 
 <h3>Edit user</h3>
 
 <form class="table" id="editUserForm">
-	<p>@Model.Id</p>
+	<p id="editUserData"></p>
 	<input type="text" name="Name" value="" />
 	<input type="email" name="Email"  value=""/>
 	<input type="date" name="BirthDate"  value=""/>

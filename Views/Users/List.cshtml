@@ -1,5 +1,4 @@
-﻿@model List<UserManagementWebApp.Models.User>
-@{
+﻿@{
 	ViewData["Title"] = "Search";
 }
 
@@ -16,20 +15,6 @@
 		</tr>
 	</thead>
 
-	<tbody>
-		@foreach(User user in Model)
-		{
-			<tr>
-				<td>@user.Id</td>
-				<td>@user.Name</td>
-				<td>@user.Email</td>
-				<td>@user.BirthDate</td>
-				<td>@user.RegistrationDate</td>
-				<td>
-					<a id="goToEdit">Edit</a>
-					<a id="goToDelete">Delete</a>
-				</td>
-			</tr>
-		}
+	<tbody id="listUserData">
 	</tbody>
 </table>

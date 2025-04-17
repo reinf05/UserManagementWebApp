@@ -12,19 +12,16 @@ namespace UserManagementWebApp.Controllers
         
         public IActionResult List()
         {
-            List<User> users = new List<User>();
-            return View(users);
+            return View();
         }        
         public IActionResult Delete()
         {
-            User user = new User();
-            return View(user);
+            return View();
         }
 
         public IActionResult Edit()
         {
-            User user = new User();
-            return View(user);
+            return View();
         }
     }
 }
