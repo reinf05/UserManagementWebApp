@@ -31,24 +31,24 @@ namespace UserManagementWebApp.Controllers
             return Ok(users);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUser(int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(int userId)
         {
-            bool exists = await _userRepository.UserExist(id);
+            bool exists = await _userRepository.UserExist(userId);
             if (!exists)
             {
                 return NotFound(ModelState);
             }
 
-            var user = await _userRepository.GetUser(id);
+            var user = await _userRepository.GetUser(userId);
 
             return Ok(user);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserDto userCreate)
+        public async Task<IActionResult> CreateUser([FromBody] UserDto userCreate)
         {
-            var user = new User()
+            User user = new User()
             {
                 Name = userCreate.Name,
                 Email = userCreate.Email,
@@ -61,12 +61,12 @@ namespace UserManagementWebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(!await _userRepository.CreateUser(user))
+            if (!await _userRepository.CreateUser(user))
             {
                 ModelState.AddModelError("", "Could not save to database");
                 return BadRequest(ModelState);
             }
-            
+
             return Ok(user);
         }
 
@@ -74,12 +74,12 @@ namespace UserManagementWebApp.Controllers
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserDto userDto)
         {
-            if(userDto == null)
+            if (userDto == null)
             {
                 return BadRequest(ModelState);
             }
 
-            if(userId != userDto.Id)
+            if (userId != userDto.Id)
             {
                 ModelState.AddModelError("", "Wrong ID");
                 return BadRequest(ModelState);
@@ -93,7 +93,7 @@ namespace UserManagementWebApp.Controllers
                 BirthDate = userDto.BirthDate
             };
 
-            if(! await _userRepository.UpdateUser(updatedUser))
+            if (!await _userRepository.UpdateUser(updatedUser))
             {
                 ModelState.AddModelError("", "Something went wrong during saving");
                 return BadRequest(ModelState);
@@ -102,7 +102,7 @@ namespace UserManagementWebApp.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             if (!await _userRepository.UserExist(id))
