@@ -17,8 +17,15 @@ namespace UserManagementWebApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Name = "Seeded User",
+                    Email = "seeded@example.com",
+                    BirthDate = new DateOnly(1995, 1, 1),
+                }
+            );
         }
     }
 }
