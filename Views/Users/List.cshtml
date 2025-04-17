@@ -1,0 +1,35 @@
+﻿@model List<UserManagementWebApp.Models.User>
+@{
+	ViewData["Title"] = "Search";
+}
+
+<h3>Search for user</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Birthdate</th>
+			<th>Registration date</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach(User user in Model)
+		{
+			<tr>
+				<td>@user.Id</td>
+				<td>@user.Name</td>
+				<td>@user.Email</td>
+				<td>@user.BirthDate</td>
+				<td>@user.RegistrationDate</td>
+				<td>
+					<a id="goToEdit">Edit</a>
+					<a id="goToDelete">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

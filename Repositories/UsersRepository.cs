@@ -45,11 +45,6 @@ namespace UserManagementWebApp.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> UpdateUser(UserDto userUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> UserExist(int id)
         {
             return await _context.Users.AnyAsync(u => u.Id == id);

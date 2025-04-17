@@ -1,0 +1,13 @@
+﻿@model UserManagementWebApp.Models.User;
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h3>Create new User</h3>
+
+<form class="table" id="createUserId">
+	<input type="text" name="Name" placeholder="Enter your name" />
+	<input type="email" name="Email" placeholder="Enter your email" />
+	<input type="date" name="BirthDate" placeholder="Enter your birth date" />
+	<input type="submit" class="btn btn-primary" value="Submit" />
+</form>
