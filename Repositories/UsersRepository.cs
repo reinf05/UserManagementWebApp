@@ -5,12 +5,15 @@ using UserManagementWebApp.DTO;
 using UserManagementWebApp.Interfaces;
 using UserManagementWebApp.Models;
 
+//Repository to seperate the context and the API
+//This makes the code more modular, restricts the use of the database context, which makes the app more secure
 namespace UserManagementWebApp.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
         private readonly UserManagementDbContext _context;
 
+        //Connects to the dbContext upon creation
         public UsersRepository(UserManagementDbContext dbContext)
         {
             _context = dbContext;

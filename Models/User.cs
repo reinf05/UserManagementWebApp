@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
+
+//Custom data type for User
 namespace UserManagementWebApp.Models
 {
     public class User

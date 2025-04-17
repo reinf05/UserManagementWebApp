@@ -5,6 +5,8 @@ using UserManagementWebApp.DTO;
 using UserManagementWebApp.Interfaces;
 using UserManagementWebApp.Models;
 
+
+//API controller to controll the API requests
 namespace UserManagementWebApp.Controllers
 {
     [Route("api/[controller]")]
@@ -18,6 +20,7 @@ namespace UserManagementWebApp.Controllers
             _userRepository = userRepository;
         }
 
+        //HTTP/GET Users, get all users
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -31,9 +34,11 @@ namespace UserManagementWebApp.Controllers
             return Ok(users);
         }
 
+        //HTTP/GET User, get user by id
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(int userId)
         {
+            //First check if there is an existing user, if not return not found
             bool exists = await _userRepository.UserExist(userId);
             if (!exists)
             {
@@ -45,9 +50,11 @@ namespace UserManagementWebApp.Controllers
             return Ok(user);
         }
 
+        //HTTP/POST Create, creates a user from UserDto (client has to input just the Name, Emal, BirthDate; Id and RegistrationDate is assigned automatically
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserDto userCreate)
         {
+            //Create User from the data that was given by the user
             User user = new User()
             {
                 Name = userCreate.Name,
@@ -55,12 +62,14 @@ namespace UserManagementWebApp.Controllers
                 BirthDate = userCreate.BirthDate,
             };
 
+            //If user already exists throw error
             if (await _userRepository.UserExist(user))
             {
                 ModelState.AddModelError("", "User with this email already exists");
                 return BadRequest(ModelState);
             }
 
+            //Try to create it, if anything went wrong throw error
             if (!await _userRepository.CreateUser(user))
             {
                 ModelState.AddModelError("", "Could not save to database");
@@ -70,10 +79,15 @@ namespace UserManagementWebApp.Controllers
             return Ok(user);
         }
 
-
+        //HTTP/PUT Update, Updates an existing user
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserDto userDto)
         {
+            //Check if data is usable
+            if(!await _userRepository.UserExist(userId)) { 
+                return NotFound(); 
+            }
+
             if (userDto == null)
             {
                 return BadRequest(ModelState);
@@ -85,6 +99,7 @@ namespace UserManagementWebApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            //Create the new user that will "replace" the old one
             User updatedUser = new User()
             {
                 Id = userId,
@@ -93,6 +108,7 @@ namespace UserManagementWebApp.Controllers
                 BirthDate = userDto.BirthDate
             };
 
+            //If anything went wrong during saving, throw error
             if (!await _userRepository.UpdateUser(updatedUser))
             {
                 ModelState.AddModelError("", "Something went wrong during saving");
@@ -102,14 +118,17 @@ namespace UserManagementWebApp.Controllers
             return NoContent();
         }
 
+        //HTTP/DELETE Delete, deletes an existing user
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            //Check if user exists
             if (!await _userRepository.UserExist(id))
             {
                 return NotFound();
             }
 
+            //Check if saving was successful
             if (!await _userRepository.DeleteUser(id))
             {
                 ModelState.AddModelError("", "Something went wrong during saving");

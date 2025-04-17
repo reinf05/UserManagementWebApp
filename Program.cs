@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using UserManagementWebApp.Data;
+using UserManagementWebApp.Interfaces;
+using UserManagementWebApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Add database service
-builder.Services.AddDbContext<UserManagementDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaulConnection")));
+builder.Services.AddDbContext<UserManagementDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Add dependency injection for the interface
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 var app = builder.Build();
 

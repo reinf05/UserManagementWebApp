@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
+
+//User Data Transfer Object
 namespace UserManagementWebApp.DTO
 {
     public class UserDto

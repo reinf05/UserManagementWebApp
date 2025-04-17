@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UserManagementWebApp.Models;
 
+//MVC Controller to controll the Users views (Create, List, Edit, Delete)
 namespace UserManagementWebApp.Controllers
 {
     public class UsersController : Controller

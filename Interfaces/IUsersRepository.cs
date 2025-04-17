@@ -1,6 +1,8 @@
 ﻿using UserManagementWebApp.DTO;
 using UserManagementWebApp.Models;
 
+
+//Interface for the repository
 namespace UserManagementWebApp.Interfaces
 {
     public interface IUsersRepository
