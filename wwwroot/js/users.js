@@ -11,6 +11,8 @@ const deleteForm = document.getElementById('deleteUserForm');
 const createForm = document.getElementById('createUserForm');
 const createText = document.getElementById('createText');
 
+const editForm = document.getElementById('editUserForm');
+
 //function to display all of the users
 async function listAllUsers() {
 
@@ -133,6 +135,37 @@ async function CreateUser() {
 };
 
 
+//Function to edit the user
+async function UpdateUser(id) {
+    const editName = document.getElementById('editName').value;
+    const editEmail = document.getElementById('editEmail').value;
+    const editBirthDate = document.getElementById('editBithDate').value;
+
+    const editUserDto = {
+        id: currentId,
+        name: editName,
+        email: editEmail,
+        birthDate: editBirthDate
+    }
+
+    fetch(`/api/UsersApi/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editUserDto)
+    }).then(result => {
+        if (result.status == 404) {
+            alert('User not found');
+        } else if (result.status == 204) {
+            alert('User successfully edited');
+            window.location.href = '/Users/List'
+        } else {
+            alert('Something went wront, please try again')
+        }
+    })
+}
+
 //Event listeners
 //If search page is loaded, load all of the users
 document.addEventListener('DOMContentLoaded', event => {
@@ -170,9 +203,18 @@ if (createForm) {
     })
 }
 
+//If delete btn clicked
 if (deleteForm) {
     deleteForm.addEventListener('submit', event => {
         event.preventDefault();
         DeleteUser(currentId);
+    })
+}
+
+//If edit btn clicked
+if (editForm) {
+    editForm.addEventListener('submit', event => {
+        event.preventDefault();
+        UpdateUser(currentId);
     })
 }

@@ -26,9 +26,13 @@ namespace UserManagementWebApp.Controllers
             return View(user);
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            return View();
+            HttpClient client = new HttpClient();
+            string baseUrl = Request.Scheme + "://" + Request.Host.ToString();
+            var result = client.GetAsync($"{baseUrl}/api/UsersApi/{id}").Result;
+            var user = result.Content.ReadFromJsonAsync<User>().Result;
+            return View(user);
         }
     }
 }
