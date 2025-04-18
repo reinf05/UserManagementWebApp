@@ -70,22 +70,19 @@ async function getUserById(id) {
         })
 }
 
-//if search button is available (search page is loaded)
-if (searchForm) {
-    //If a click 
-    searchForm.addEventListener('submit', event => {
-        event.preventDefault();
-        const inputValue = searchValue.value.trim();
-        //Although input type number only accepts number, nothing still can be inputted
-        //That is why this check is necessary
-        if (inputValue !== '') {
-            getUserById(inputValue);
-        }
-        else if (inputValue <= 0) {
-            alert('ID must be a positive number')
-        }
-        else {
-            alert('Please enter a number to search');
-        }
-    })
-}
+//If a click 
+searchForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const inputValue = searchValue.value.trim();
+    //Although input type number only accepts number, nothing still can be inputted
+    //That is why this check is necessary
+    if (inputValue !== '') {
+        getUserById(inputValue);
+    }
+    else if (inputValue <= 0) {
+        alert('ID must be a positive number')
+    }
+    else {
+        alert('Please enter a number to search');
+    }
+})

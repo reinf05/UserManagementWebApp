@@ -22,9 +22,7 @@ async function DeleteUser(id) {
 }
 
 //If delete btn clicked
-if (deleteForm) {
-    deleteForm.addEventListener('submit', event => {
-        event.preventDefault();
-        DeleteUser(currentId);
-    })
-}
+deleteForm.addEventListener('submit', event => {
+    event.preventDefault();
+    DeleteUser(currentId);
+})

@@ -1,5 +1,6 @@
 ﻿//Declare constants
 const editForm = document.getElementById('editUserForm');
+const currentId = document.getElementById('editId').innerText;
 
 //Function to edit the user
 async function UpdateUser(id) {
@@ -7,11 +8,12 @@ async function UpdateUser(id) {
     const editEmail = document.getElementById('editEmail').value;
     const editBirthDate = document.getElementById('editBithDate').value;
 
-    const editUserDto = {
+    const editUser = {
         id: currentId,
         name: editName,
         email: editEmail,
-        birthDate: editBirthDate
+        birthDate: editBirthDate,
+        registrationDate: currentRegDate
     }
 
     fetch(`/api/UsersApi/${id}`, {
@@ -19,7 +21,7 @@ async function UpdateUser(id) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(editUserDto)
+        body: JSON.stringify(editUser)
     }).then(result => {
         if (result.status == 404) {
             alert('User not found');
@@ -27,15 +29,13 @@ async function UpdateUser(id) {
             alert('User successfully edited');
             window.location.href = '/Users/List'
         } else {
-            alert('Something went wront, please try again')
+            alert('Something went wrong, please try again')
         }
     })
 }
 
 //If edit btn clicked
-if (editForm) {
-    editForm.addEventListener('submit', event => {
-        event.preventDefault();
-        UpdateUser(currentId);
-    })
-}
+editForm.addEventListener('submit', event => {
+    event.preventDefault();
+    UpdateUser(currentId);
+})

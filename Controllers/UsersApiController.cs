@@ -92,35 +92,27 @@ namespace UserManagementWebApp.Controllers
 
         //HTTP/PUT Update, Updates an existing user
         [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser(int userId, [FromBody] UserDto userDto)
+        public async Task<IActionResult> UpdateUser(int userId, [FromBody] User userNew)
         {
             //Check if data is usable
             if(!await _userRepository.UserExist(userId)) { 
                 return NotFound(); 
             }
 
-            if (userDto == null)
+            if (userNew == null)
             {
                 return BadRequest(ModelState);
             }
 
-            if (userId != userDto.Id)
+            if (userId != userNew.Id)
             {
                 ModelState.AddModelError("", "Wrong ID");
                 return BadRequest(ModelState);
             }
 
-            //Create the new user that will "replace" the old one
-            User updatedUser = new User()
-            {
-                Id = userId,
-                Name = userDto.Name,
-                Email = userDto.Email,
-                BirthDate = userDto.BirthDate
-            };
 
             //If anything went wrong during saving, throw error
-            if (!await _userRepository.UpdateUser(updatedUser))
+            if (!await _userRepository.UpdateUser(userNew))
             {
                 ModelState.AddModelError("", "Something went wrong during saving");
                 return BadRequest(ModelState);

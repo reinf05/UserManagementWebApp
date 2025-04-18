@@ -40,9 +40,7 @@ async function CreateUser() {
 };
 
 //If create btn clicked
-if (createForm) {
-    createForm.addEventListener('submit', event => {
-        event.preventDefault();
-        CreateUser();
-    })
-}
+createForm.addEventListener('submit', event => {
+    event.preventDefault();
+    CreateUser();
+})

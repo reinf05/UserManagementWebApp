@@ -6,15 +6,25 @@
 <h3>Edit user</h3>
 
 <form class="table" id="editUserForm">
-	<p id="editUserData">The ID of the user is: @Model.Id</p>
+	<div>
+		<p>The current users ID is:</p>
+		<p id="editId">@Model.Id</p>
+	</div>
 	<input type="text" id="editName" name="Name" value="@Model.Name" />
 	<input type="email" id="editEmail" name="Email"  value="@Model.Email"/>
 	<input type="date" id="editBithDate" name="BirthDate" value="@Model.BirthDate.ToString("yyyy-MM-dd")")/>
 	<input type="submit" class="btn btn-primary" value="Edit" />
 </form>
 
+@* <script>
+	window.editPageData = {
+		currentRegDate: @Model.RegistrationDate.ToString("yyyy-MM-dd"),
+		currentId: @Model.Id
+	};
+</script> *@
+
 <script>
-	const currentId = @Model.Id;
+	const currentRegDate = '@Model.RegistrationDate.ToString("yyyy-MM-dd")'
 </script>
 
 <script src="~/js/edit.js"></script>
