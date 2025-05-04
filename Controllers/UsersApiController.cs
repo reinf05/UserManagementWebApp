@@ -21,6 +21,7 @@ namespace UserManagementWebApp.Controllers
         }
 
         //HTTP/GET Users, get all users
+        //GET/Users
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -35,6 +36,7 @@ namespace UserManagementWebApp.Controllers
         }
 
         //HTTP/GET User, get user by id
+        //GET/Users/id
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(int userId)
         {
@@ -56,6 +58,7 @@ namespace UserManagementWebApp.Controllers
         }
 
         //HTTP/POST Create, creates a user from UserDto (client has to input just the Name, Emal, BirthDate; Id and RegistrationDate is assigned automatically
+        //POST/Users
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserDto userCreate)
         {
@@ -91,6 +94,7 @@ namespace UserManagementWebApp.Controllers
         }
 
         //HTTP/PUT Update, Updates an existing user
+        //PUT/Users/id
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] User userNew)
         {
@@ -122,6 +126,7 @@ namespace UserManagementWebApp.Controllers
         }
 
         //HTTP/DELETE Delete, deletes an existing user
+        //DELETE/Users/id
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
