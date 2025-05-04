@@ -3,13 +3,39 @@
 	ViewData["Title"] = "Create";
 }
 
-<h3 id="createText">Create new User</h3>
 
-<form class="table" id="createUserForm">
-	<input type="text" id="createName" name="Name" placeholder="Enter your name" />
-	<input type="email" id="createEmail"  name="Email" placeholder="Enter your email" />
-	<input type="date" id="createBirthDate" name="BirthDate" placeholder="Enter your birth date" />
-	<input type="submit" class="btn btn-primary" value="Submit" />
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4" id="createText">Create New User</h3>
+
+                    <form id="createUserForm">
+                        <div class="form-group mb-3">
+                            <label for="createName">Name</label>
+                            <input type="text" class="form-control" id="createName" name="Name" placeholder="Enter your name" required />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="createEmail">Email</label>
+                            <input type="email" class="form-control" id="createEmail" name="Email" placeholder="Enter your email" required />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="createBirthDate">Birth Date</label>
+                            <input type="date" class="form-control" id="createBirthDate" name="BirthDate" required />
+                        </div>
+
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-primary px-4" value="Submit" />
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/js/create.js"></script>

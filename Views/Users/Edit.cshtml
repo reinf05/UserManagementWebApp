@@ -3,25 +3,43 @@
 	ViewData["Title"] = "Edit";
 }
 
-<h3>Edit user</h3>
 
-<form class="table" id="editUserForm">
-	<div>
-		<p>The current users ID is:</p>
-		<p id="editId">@Model.Id</p>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card-body">
+				<h3>Edit user</h3>
+
+				<form id="editUserForm">
+					<div class="mb-3">
+						<label class="form-label">User-ID</label>
+						<p id="editId">@Model.Id</p>
+					</div>
+
+					<div class="mb-3">
+						<label for="editName" class="form-label">Name</label>
+						<input type="text" class="form-control" id="editName" name="Name" value="@Model.Name" />
+					</div>
+
+					<div class="mb-3">
+						<label for="editEmail" class="form-label">Email</label>
+						<input type="email" class="form-control" id="editEmail" name="Email" value="@Model.BirthDate.ToString("yyyy-MM-dd")" />
+					</div>
+
+					<div class="mb-3">
+						<label for="editBithDate" class="form-label">Birth date</label>
+						<input type="date" class="form-control" id="editBithDate" name="BirthDate" value="@Model.Name" />
+					</div>
+
+					<div class="text-center">
+						<input type="submit" class="btn btn-primary" value="Save changes" />
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	<input type="text" id="editName" name="Name" value="@Model.Name" />
-	<input type="email" id="editEmail" name="Email"  value="@Model.Email"/>
-	<input type="date" id="editBithDate" name="BirthDate" value="@Model.BirthDate.ToString("yyyy-MM-dd")")/>
-	<input type="submit" class="btn btn-primary" value="Edit" />
-</form>
+</div>
 
-@* <script>
-	window.editPageData = {
-		currentRegDate: @Model.RegistrationDate.ToString("yyyy-MM-dd"),
-		currentId: @Model.Id
-	};
-</script> *@
 
 <script>
 	const currentRegDate = '@Model.RegistrationDate.ToString("yyyy-MM-dd")'
